@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Payment Cancelled | Tools Nestt">
+  <main class="min-h-screen flex items-center justify-center px-6">
+    <div class="max-w-md w-full bg-slate-900/40 border border-slate-800 p-12 rounded-[3rem] text-center backdrop-blur-xl">
+      
+      <div class="w-20 h-20 bg-slate-800/50 border border-slate-700 rounded-full flex items-center justify-center mx-auto mb-8">
+        <span class="text-3xl text-slate-500">⚠️</span>
+      </div>
+
+      <h1 class="text-4xl font-black text-white italic uppercase tracking-tighter mb-4">Payment Cancelled</h1>
+      <p class="text-slate-400 text-sm italic mb-10 leading-relaxed">
+        It looks like the transaction didn't go through. No charges were made. If you had trouble with the checkout, our support team is ready to help.
+      </p>
+
+      <div class="space-y-4">
+        <a href="/pricing" class="block w-full py-5 bg-indigo-600 text-white font-black uppercase text-xs tracking-[0.2em] rounded-2xl hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20">
+          Try Again
+        </a>
+        <a href="/help" class="block w-full py-5 bg-transparent border border-slate-800 text-slate-400 font-black uppercase text-[10px] tracking-widest rounded-2xl hover:bg-slate-800 transition-all">
+          Contact Support
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
