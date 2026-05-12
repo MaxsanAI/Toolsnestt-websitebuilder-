@@ -1,0 +1,72 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Simulacija podataka iz D1 baze
+const projects = [
+  { id: '1', name: 'my-portfolio', type: 'code', status: 'active' },
+  { id: '2', name: 'alpha-test', type: 'folder', status: 'trial' }
+];
+
+const trialDays = 4;
+---
+
+<Layout title="Dashboard | Tools Nestt">
+  <div class="flex min-h-screen bg-[#020617] text-slate-200">
+    <!-- Sidebar -->
+    <aside class="w-64 border-r border-slate-800/50 p-6 flex flex-col">
+      <div class="mb-10">
+        <h2 class="text-white font-black italic tracking-tighter text-xl">TOOLS NESTT</h2>
+        <p class="text-[10px] text-indigo-500 font-bold uppercase tracking-widest">SaaS Engine v2</p>
+      </div>
+      
+      <nav class="space-y-2 flex-1">
+        <a href="/dashboard" class="block px-4 py-2 rounded-lg bg-indigo-600/10 text-indigo-400 font-bold text-sm border border-indigo-500/20">Projects</a>
+        <a href="/pricing" class="block px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition text-sm">Subscription</a>
+        <a href="/legal/terms" class="block px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition text-sm">Documentation</a>
+      </nav>
+
+      <div class="bg-indigo-500/5 border border-indigo-500/10 p-4 rounded-2xl">
+        <p class="text-[10px] text-indigo-400 font-black uppercase mb-1">Trial Status</p>
+        <p class="text-sm text-white font-bold">{trialDays} Days Left</p>
+        <div class="w-full bg-slate-800 h-1 mt-2 rounded-full overflow-hidden">
+          <div class="bg-indigo-500 h-full" style={`width: ${(trialDays/7)*100}%`}></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-10">
+      <div class="flex justify-between items-center mb-12">
+        <div>
+          <h1 class="text-3xl font-black text-white italic uppercase tracking-tighter">My Projects</h1>
+          <p class="text-slate-500 text-sm italic">Managing your assets on maximhot.workers.dev</p>
+        </div>
+        <button id="newProjectBtn" class="px-6 py-3 bg-white text-black font-black uppercase text-xs rounded-xl hover:scale-105 transition-all shadow-xl shadow-white/5">
+          + New Project
+        </button>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {projects.map(p => (
+          <div class="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-indigo-500/50 transition-all group">
+            <div class="flex justify-between items-start mb-4">
+              <div class="w-10 h-10 rounded-xl bg-indigo-600/20 flex items-center justify-center text-indigo-400">
+                {p.type === 'code' ? 'JS' : 'F'}
+              </div>
+              <span class={`text-[10px] font-black uppercase px-2 py-1 rounded-md ${p.status === 'active' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'}`}>
+                {p.status}
+              </span>
+            </div>
+            <h3 class="text-white font-bold mb-1">{p.name}</h3>
+            <p class="text-slate-500 text-xs mb-6 truncate">{p.name}.maximhot.workers.dev</p>
+            
+            <div class="flex gap-2">
+              <a href={`/dashboard/edit/${p.id}`} class="flex-1 text-center py-2 bg-slate-800 rounded-lg text-[10px] font-bold uppercase hover:bg-slate-700">Edit</a>
+              <a href={`https://${p.name}.maximhot.workers.dev`} target="_blank" class="px-3 py-2 bg-indigo-600 rounded-lg text-[10px] font-bold uppercase hover:bg-indigo-500">Visit</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </main>
+  </div>
+</Layout>
