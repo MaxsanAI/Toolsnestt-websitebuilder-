@@ -1,0 +1,131 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+const { id } = Astro.params;
+---
+
+<Layout title="Deploy Center | Tools Nestt">
+  <div class="h-screen flex flex-col bg-[#020617]">
+    <!-- Top Header -->
+    <header class="h-16 border-b border-slate-800 px-6 flex items-center justify-between bg-[#020617] z-20">
+      <div class="flex items-center gap-4">
+        <a href="/dashboard" class="text-slate-500 hover:text-white transition-colors text-xl">←</a>
+        <div>
+          <h2 class="text-white font-black text-sm uppercase tracking-tighter">Project Engine</h2>
+          <p class="text-[10px] text-slate-500 font-mono">ID: {id}</p>
+        </div>
+      </div>
+      
+      <div class="flex gap-3">
+        <button id="deployBtn" class="px-6 py-2 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-500 hover:scale-105 transition-all shadow-lg shadow-indigo-600/20">
+          Push to Edge
+        </button>
+      </div>
+    </header>
+
+    <div class="flex-1 flex overflow-hidden">
+      <!-- Method Switcher (Sidebar) -->
+      <aside class="w-20 border-r border-slate-800 flex flex-col items-center py-6 gap-8 bg-[#020617]">
+        <button onclick="switchTab('code')" class="tab-btn active-tab" id="tab-code-btn" title="Paste Code">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+          </svg>
+        </button>
+        <button onclick="switchTab('upload')" class="tab-btn" id="tab-upload-btn" title="Upload Folder">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+        </button>
+      </aside>
+
+      <!-- Content Area -->
+      <main class="flex-1 relative">
+        <!-- Option 1: Monaco Editor -->
+        <div id="code-section" class="absolute inset-0 z-10">
+          <div id="editorContainer" class="h-full w-full"></div>
+        </div>
+
+        <!-- Option 2: Folder Upload (R2) -->
+        <div id="upload-section" class="absolute inset-0 z-0 bg-slate-900/20 flex items-center justify-center hidden p-20">
+          <div class="w-full max-w-2xl border-2 border-dashed border-slate-700 rounded-[3rem] p-12 text-center hover:border-indigo-500 transition-colors group" id="dropZone">
+            <div class="w-20 h-20 bg-indigo-600/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+              <span class="text-3xl">📁</span>
+            </div>
+            <h3 class="text-2xl font-black text-white italic uppercase mb-2">Drag & Drop Folder</h3>
+            <p class="text-slate-500 mb-8">Upload your entire web project (index.html, assets, etc.) directly to Cloudflare R2.</p>
+            <input type="file" id="folderInput" webkitdirectory directory multiple class="hidden" />
+            <button onclick="document.getElementById('folderInput').click()" class="px-8 py-4 bg-slate-800 text-white rounded-2xl font-bold hover:bg-slate-700 transition-all">
+              Select Folder
+            </button>
+            <div id="fileList" class="mt-6 text-xs text-indigo-400 font-mono"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>
+    .tab-btn { @apply p-4 rounded-2xl text-slate-600 transition-all hover:text-white; }
+    .active-tab { @apply bg-indigo-600/10 text-indigo-500 border border-indigo-500/20; }
+    .hidden { display: none !important; }
+  </style>
+
+  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+  <script is:inline>
+    // 1. Tab Switching Logic
+    function switchTab(type) {
+      const codeSec = document.getElementById('code-section');
+      const uploadSec = document.getElementById('upload-section');
+      const codeBtn = document.getElementById('tab-code-btn');
+      const uploadBtn = document.getElementById('tab-upload-btn');
+
+      if (type === 'code') {
+        codeSec.classList.remove('hidden');
+        uploadSec.classList.add('hidden');
+        codeBtn.classList.add('active-tab');
+        uploadBtn.classList.remove('active-tab');
+      } else {
+        codeSec.classList.add('hidden');
+        uploadSec.classList.remove('hidden');
+        uploadBtn.classList.add('active-tab');
+        codeBtn.classList.remove('active-tab');
+      }
+    }
+
+    // 2. Monaco Editor Initialization
+    require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
+    require(['vs/editor/editor.main'], function () {
+      window.editor = monaco.editor.create(document.getElementById('editorContainer'), {
+        value: '<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { background: #0f172a; color: white; font-family: sans-serif; text-align: center; padding-top: 50px; }\n  </style>\n</head>\n<body>\n  <h1>New Project via Code Paste</h1>\n</body>\n</html>',
+        language: 'html',
+        theme: 'vs-dark',
+        fontSize: 14,
+        fontFamily: 'JetBrains Mono',
+        automaticLayout: true,
+        padding: { top: 20 }
+      });
+    });
+
+    // 3. Folder Upload Logic
+    const folderInput = document.getElementById('folderInput');
+    folderInput.addEventListener('change', (e) => {
+      const files = e.target.files;
+      document.getElementById('fileList').innerText = `Selected ${files.length} files. Ready to push.`;
+    });
+
+    // 4. Global Deploy Trigger
+    document.getElementById('deployBtn').addEventListener('click', async () => {
+      const isCode = !document.getElementById('code-section').classList.contains('hidden');
+      
+      if (isCode) {
+        const content = window.editor.getValue();
+        console.log("Saving to D1:", content);
+        alert("Deploying Code to D1...");
+      } else {
+        const files = folderInput.files;
+        if (files.length === 0) return alert("Please select a folder first!");
+        console.log("Uploading to R2:", files);
+        alert(`Uploading ${files.length} files to R2...`);
+      }
+    });
+  </script>
+</Layout>
