@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pricingSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Tools Nestt Hosting Plans",
+  "description": "Professional hybrid hosting for folders and code snippets.",
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "USD",
+    "lowPrice": "9.00",
+    "highPrice": "69.00",
+    "offerCount": "3"
+  }
+};
+---
+
+<Layout 
+  title="Pricing Plans | Tools Nestt SaaS Engine" 
+  description="Start your 7-day free trial. Choose between Starter, Pro, and Business plans for high-performance hosting at maximhot.workers.dev."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(pricingSchema)} />
+
+  <main class="py-24 px-6 relative overflow-hidden">
+    <!-- Background Glows -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-indigo-600/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="text-center mb-20">
+        <h1 class="text-5xl md:text-7xl font-black text-white tracking-tighter italic mb-6">
+          PRICING <span class="text-indigo-500">ENGINE.</span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+          Every plan starts with a <span class="text-white font-bold text-indigo-400">7-day unrestricted free trial</span>. <br/>
+          Secure payments powered by <strong>Paddle</strong>.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8 items-stretch">
+        
+        <!-- Starter Plan -->
+        <div class="group p-8 rounded-[2.5rem] bg-slate-900/40 border border-slate-800 hover:border-slate-700 transition-all flex flex-col">
+          <div class="mb-8">
+            <h3 class="text-indigo-400 font-black uppercase tracking-widest text-sm mb-4">Starter</h3>
+            <div class="flex items-baseline gap-1 text-white">
+              <span class="text-5xl font-black italic">$9</span>
+              <span class="text-slate-500 font-medium">/mo</span>
+            </div>
+            <p class="text-slate-500 text-xs mt-2 uppercase tracking-tighter font-bold">7-Day Free Trial Included</p>
+          </div>
+
+          <ul class="space-y-4 mb-10 flex-1">
+            {["1 Website Deployment", "Custom Subdomain", "Standard Support", "Global Edge Caching", "Free SSL Certificate"].map((feature) => (
+              <li class="flex items-center gap-3 text-slate-300 text-sm">
+                <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+
+          <a href="/auth/signup" class="w-full py-4 rounded-2xl bg-slate-800 text-white font-black uppercase tracking-widest text-xs hover:bg-slate-700 transition-all text-center">
+            Get Started
+          </a>
+        </div>
+
+        <!-- Pro Plan (Most Popular) -->
+        <div class="relative p-8 rounded-[2.5rem] bg-gradient-to-b from-slate-800/50 to-slate-900 border-2 border-indigo-500 shadow-[0_0_50px_rgba(79,70,229,0.15)] flex flex-col transform lg:-translate-y-4">
+          <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-indigo-500 text-white px-6 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] italic">
+            Most Popular
+          </div>
+          
+          <div class="mb-8 mt-2">
+            <h3 class="text-indigo-400 font-black uppercase tracking-widest text-sm mb-4 text-center">Pro (6 Months)</h3>
+            <div class="flex items-baseline justify-center gap-1 text-white">
+              <span class="text-6xl font-black italic">$39</span>
+              <span class="text-slate-500 font-medium">/6mo</span>
+            </div>
+            <p class="text-indigo-400 text-[10px] text-center mt-2 uppercase font-black tracking-widest">Save 25% vs Monthly</p>
+          </div>
+
+          <ul class="space-y-4 mb-10 flex-1">
+            {["5 Website Deployments", "Custom Domains Support", "AI Content Assistant", "Priority Email Support", "Advanced SEO Tools"].map((feature) => (
+              <li class="flex items-center gap-3 text-white text-sm">
+                <svg class="w-5 h-5 text-indigo-500 shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+
+          <a href="/auth/signup" class="w-full py-5 rounded-2xl bg-indigo-600 text-white font-black uppercase tracking-widest text-xs hover:bg-indigo-500 shadow-lg shadow-indigo-600/20 transition-all text-center">
+            Upgrade to Pro
+          </a>
+        </div>
+
+        <!-- Business Plan -->
+        <div class="group p-8 rounded-[2.5rem] bg-slate-900/40 border border-slate-800 hover:border-slate-700 transition-all flex flex-col">
+          <div class="mb-8">
+            <h3 class="text-indigo-400 font-black uppercase tracking-widest text-sm mb-4">Business</h3>
+            <div class="flex items-baseline gap-1 text-white">
+              <span class="text-5xl font-black italic">$69</span>
+              <span class="text-slate-500 font-medium">/yr</span>
+            </div>
+            <p class="text-slate-500 text-xs mt-2 uppercase tracking-tighter font-bold">The Ultimate Value</p>
+          </div>
+
+          <ul class="space-y-4 mb-10 flex-1">
+            {["Unlimited Deployments", "White-label Branding", "API Access", "24/7 Dedicated Support", "Custom Worker Code"].map((feature) => (
+              <li class="flex items-center gap-3 text-slate-300 text-sm">
+                <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+
+          <a href="/contact" class="w-full py-4 rounded-2xl bg-slate-800 text-white font-black uppercase tracking-widest text-xs hover:bg-slate-700 transition-all text-center">
+            Contact Sales
+          </a>
+        </div>
+
+      </div>
+
+      <!-- FAQ Summary for Pricing -->
+      <div class="mt-24 max-w-2xl mx-auto text-center border-t border-slate-900 pt-16">
+        <h4 class="text-white font-bold mb-4 italic">Infrastructure Guarantee</h4>
+        <p class="text-slate-500 text-xs leading-relaxed uppercase tracking-widest">
+          Distributed via North America West (US-West) Edge Nodes. <br/>
+          Payments processed via Paddle. Cancel anytime during the 7-day trial.
+        </p>
+      </div>
+    </div>
+  </main>
+</Layout>
