@@ -72,7 +72,17 @@ const schema = {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-  </head>
+
+<!-- Paddle.js v2 -->
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script type="text/javascript">
+  Paddle.Setup({ 
+    seller: 12345, // OVDE IDE TVOJ PADDLE SELLER ID
+    environment: 'production' // Promeni u 'sandbox' dok testiraš
+  });
+</script>
+    
+</head>
   
   <body class="bg-[#020617] text-slate-200 antialiased selection:bg-indigo-500/30 font-['Plus_Jakarta_Sans']">
     
