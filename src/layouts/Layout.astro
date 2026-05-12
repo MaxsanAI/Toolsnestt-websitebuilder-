@@ -1,0 +1,114 @@
+---
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { 
+  title, 
+  description = "High-performance hybrid edge hosting. Deploy folders to R2 or code to D1 instantly.",
+  image = "https://websitebuilder.toolsnestt.com/og-image.png" 
+} = Astro.props;
+
+const siteUrl = "https://websitebuilder.toolsnestt.com";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Tools Nestt",
+  "operatingSystem": "All",
+  "applicationCategory": "DeveloperApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "9.00",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Vladimir Maksimovic"
+  }
+};
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <!-- Dark Mode Support -->
+    <meta name="theme-color" content="#020617" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+    <!-- Paddle.js v2 -->
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <script type="text/javascript">
+      Paddle.Setup({ 
+        seller: 12345, // Zameni sa svojim ID-jem
+        environment: 'sandbox' 
+      });
+    </script>
+  </head>
+  
+  <body class="bg-[#020617] text-slate-200 antialiased selection:bg-indigo-500/30 font-['Plus_Jakarta_Sans']">
+    
+    <!-- Background Noise Texture -->
+    <div class="fixed inset-0 bg-[url('/noise.svg')] opacity-[0.03] pointer-events-none z-[99]"></div>
+    
+    <div class="min-h-screen flex flex-col">
+      <div class="flex-1">
+        <slot />
+      </div>
+      
+      <Footer />
+    </div>
+
+    <style is:global>
+      :root {
+        --accent: 79, 70, 229;
+        --accent-light: 129, 140, 248;
+      }
+      
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: #020617; }
+      ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
+
+      h1, h2, h3, h4, .font-black { font-family: 'Plus Jakarta Sans', sans-serif; }
+      code, .font-mono { font-family: 'JetBrains Mono', monospace; }
+    </style>
+  </body>
+</html>
