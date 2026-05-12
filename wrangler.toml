@@ -1,0 +1,19 @@
+name = "toolsnestt-saas"
+main = "./dist/_worker.js/index.js"
+compatibility_date = "2026-05-12"
+
+[site]
+bucket = "./dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "toolsnestt_db"
+database_id = "8fd670b1-7b58-4a7b-831e-e2d0778f76f2"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "toolsnestt-uploads"
+
+[vars]
+PADDLE_VENDOR_ID = "your_id"
+TRIAL_DAYS = 7
