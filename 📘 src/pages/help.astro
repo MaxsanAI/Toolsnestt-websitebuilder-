@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const faqs = [
+  {
+    q: "How do I deploy my first project?",
+    a: "Go to your Dashboard, click '+ New Deployment', enter a unique name, and choose between 'Paste Code' (for quick HTML/JS) or 'Upload Folder' (for full websites with assets)."
+  },
+  {
+    q: "What is the 'maximhot.workers.dev' domain?",
+    a: "It is our high-speed edge infrastructure. Every project you create gets a free subdomain (e.g., your-name.maximhot.workers.dev) powered by Cloudflare's global network."
+  },
+  {
+    q: "How does the 7-day free trial work?",
+    a: "You get full access to all features for 7 days. If you don't upgrade to a pro plan, your hosted sites will show a 'Trial Expired' page until a subscription is active."
+  },
+  {
+    q: "Can I use my own custom domain?",
+    a: "Yes! Pro and Business users can map their own domains (e.g., www.yourdomain.com) to their Tools Nestt projects via the settings panel."
+  }
+];
+---
+
+<Layout title="Help Center | Tools Nestt Support">
+  <main class="bg-[#020617] min-h-screen pb-20">
+    <!-- Hero Section -->
+    <section class="py-24 px-6 border-b border-slate-800/50 bg-gradient-to-b from-indigo-500/5 to-transparent">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-6xl font-black text-white italic tracking-tighter uppercase mb-6">Help Center</h1>
+        <p class="text-slate-400 text-lg italic">Everything you need to build and deploy on the Edge.</p>
+      </div>
+    </section>
+
+    <!-- Quick Start Guide -->
+    <section class="max-w-5xl mx-auto py-20 px-6">
+      <h2 class="text-2xl font-black text-white uppercase italic mb-12 flex items-center gap-4">
+        <span class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-sm not-italic">01</span>
+        Quick Start Guide
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-8 rounded-[2rem] bg-slate-900/40 border border-slate-800">
+          <div class="text-3xl mb-4">✍️</div>
+          <h3 class="text-white font-bold mb-2">1. Create</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Name your project. This becomes your instant URL on our edge network.</p>
+        </div>
+        <div class="p-8 rounded-[2rem] bg-slate-900/40 border border-slate-800">
+          <div class="text-3xl mb-4">🚀</div>
+          <h3 class="text-white font-bold mb-2">2. Deploy</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Paste your HTML or drag-and-drop your entire dist/ folder. We handle the rest.</p>
+        </div>
+        <div class="p-8 rounded-[2rem] bg-slate-900/40 border border-slate-800">
+          <div class="text-3xl mb-4">🌐</div>
+          <h3 class="text-white font-bold mb-2">3. Go Live</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Your site is instantly distributed to 300+ nodes globally via Cloudflare.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="max-w-3xl mx-auto py-20 px-6">
+      <h2 class="text-2xl font-black text-white uppercase italic mb-12 text-center">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faqs.map(faq => (
+          <div class="p-6 rounded-2xl bg-slate-900/20 border border-slate-800/50">
+            <h4 class="text-white font-bold mb-2 uppercase text-xs tracking-widest text-indigo-400">{faq.q}</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Support Footer -->
+    <section class="max-w-4xl mx-auto mt-20 p-12 rounded-[3rem] bg-indigo-600 text-center shadow-2xl shadow-indigo-600/20">
+      <h2 class="text-3xl font-black text-white italic uppercase mb-4 tracking-tighter">Still need help?</h2>
+      <p class="text-indigo-100 mb-8 opacity-80">Our technical team is available 24/7 for all Pro and Business members.</p>
+      <a href="mailto:support@toolsnestt.com" class="inline-block px-10 py-4 bg-white text-indigo-600 font-black uppercase text-xs tracking-[0.2em] rounded-2xl hover:scale-105 transition-all">
+        Contact Support
+      </a>
+    </section>
+  </main>
+</Layout>
