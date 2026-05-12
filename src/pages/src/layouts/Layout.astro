@@ -1,4 +1,6 @@
 ---
+import Footer from '../components/Footer.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -7,11 +9,29 @@ interface Props {
 
 const { 
   title, 
-  description = "Deploy folders or code instantly. The high-performance hybrid hosting engine for developers.",
+  description = "Deploy folders or code instantly on the US-West Cloudflare Edge. High-performance hybrid hosting for developers.",
   image = "https://websitebuilder.toolsnestt.com/og-image.png" 
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://websitebuilder.toolsnestt.com");
+
+// JSON-LD za bolji SEO i verifikaciju kod platnih procesora
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Tools Nestt",
+  "operatingSystem": "All",
+  "applicationCategory": "DeveloperApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "9.00",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Vladimir Maksimovic"
+  }
+};
 ---
 
 <!doctype html>
@@ -42,10 +62,63 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
 
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
     <!-- Dark Mode Support -->
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#020617" />
+    
+    <!-- Fonty & Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-[#0f172a] text-slate-200 antialiased selection:bg-indigo-500/30">
-    <slot />
+  
+  <body class="bg-[#020617] text-slate-200 antialiased selection:bg-indigo-500/30 font-['Plus_Jakarta_Sans']">
+    
+    <!-- Background Noise/Texture -->
+    <div class="fixed inset-0 bg-[url('/noise.svg')] opacity-[0.03] pointer-events-none z-[99]"></div>
+    
+    <!-- Glavni Sadržaj Stranica -->
+    <div class="min-h-screen flex flex-col">
+      <div class="flex-1">
+        <slot />
+      </div>
+      
+      <!-- Automatski Footer na svakoj stranici -->
+      <Footer />
+    </div>
+
+    <style is:global>
+      :root {
+        --accent: 79, 70, 229;
+        --accent-light: 129, 140, 248;
+      }
+      
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #020617;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #4f46e5;
+      }
+
+      /* Custom Font for Headings */
+      h1, h2, h3, h4, .font-black {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+
+      /* Code styling */
+      code, .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+    </style>
   </body>
 </html>
